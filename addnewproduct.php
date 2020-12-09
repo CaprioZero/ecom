@@ -6,22 +6,22 @@
 <?php
 if (isset($_POST["submit"]))
 {
-    $title = mysqli_real_escape_string($con, $_POST["postTitle"]);
-    $category = mysqli_real_escape_string($con, $_POST["categoryTitle"]);
+    $title = mysqli_real_escape_string($connection, $_POST["postTitle"]);
+    $category = mysqli_real_escape_string($connection, $_POST["categoryTitle"]);
     $Image = $_FILES["imageSelect"]["name"];
     $Target = "uploads/" . basename($_FILES["imageSelect"]["name"]);
-    $post = mysqli_real_escape_string($con, $_POST["postArea"]);
+    $Description = mysqli_real_escape_string($connection, $_POST["postArea"]);
     date_default_timezone_set("Asia/Ho_Chi_Minh");
     $CurrentTime = time();
     $DateTime = strftime("%d-%m-%Y %H:%M:%S", $CurrentTime);
     $DateTime;
-    $Admin = $_SESSION["UserName"];
+    $Price = mysqli_real_escape_string($connection, $_POST["price"]);
     if (empty($title))
     {
         $_SESSION["ErrorMessage"] = "Please fill out title";
         Redirect_to("addnewpost.php");
     }
-    elseif (strlen($category) > 1999)
+    elseif (strlen($title) > 1999)
     {
         $_SESSION["ErrorMessage"] = "Title should be less than than 2000 characters";
         Redirect_to("addnewpost.php");
@@ -29,13 +29,13 @@ if (isset($_POST["submit"]))
     else
     {
         // Query to insert category in DB When everything is fine
-        global $con;
-        $Query = "INSERT INTO post_detail(datetime,title,category,author,image,post) VALUES ('$DateTime','$title','$category','$Admin','$Image','$post')";
-        $Execute = mysqli_query($con, $Query);
+        global $connection;
+        $Query = "INSERT INTO items(datetime,title,category,image,post) VALUES ('$DateTime','$title','$category','$Image','$Description','$Price')";
+        $Execute = mysqli_query($connection, $Query);
         move_uploaded_file($_FILES["imageSelect"]["tmp_name"], $Target);
         if ($Execute)
         {
-            $_SESSION["SuccessMessage"] = "Post added Successfully";
+            $_SESSION["SuccessMessage"] = "Product added Successfully";
             Redirect_to("dashboard.php");
         }
         else
@@ -95,34 +95,36 @@ if (isset($_POST["submit"]))
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                <div class="sidebar-sticky pt-3">
                   <ul class="nav flex-column">
-                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard.php"><i class="fas fa-columns"></i>
+                  <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-columns"></i>
                         <span data-feather="home"></span>
                         Dashboard
                         </a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link active" href="#"><i class="fas fa-plus"></i>
-                        <span data-feather="file"></span>
-                        Add new post <span class="sr-only">(current)</span>
+                        <a class="nav-link active" href="postdashboard.php"><i class="fas fa-columns"></i>
+                        <span data-feather="home"></span>
+                        Add new product <span class="sr-only">(current)</span>
                         </a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="categories.php"><i class="fas fa-tags"></i>
-                        <span data-feather="shopping-cart"></span>
+                        <a class="nav-link" href="commentdashboard.php"><i class="fas fa-columns"></i>
+                        <span data-feather="home"></span>
                         Categories
                         </a>
                      </li>
+                     <?php if ($_SESSION['user_type'] == "admin"){ ?>
                      <li class="nav-item">
-                        <a class="nav-link" href="admin.php"><i class="fas fa-users-cog"></i>
-                        <span data-feather="users"></span>
-                        Admin list
+                        <a class="nav-link" href="editpermission.php"><i class="fas fa-plus"></i>
+                        <span data-feather="file"></span>
+                        Change user permission
                         </a>
                      </li>
+                     <?php } ?>
                      <li class="nav-item">
-                        <a class="nav-link" rel="noopener noreferrer" target="_blank" href="index.php?page=1"><i class="far fa-eye"></i>
+                        <a class="nav-link" rel="noopener noreferrer" target="_blank" href="index.php"><i class="far fa-eye"></i>
                         <span data-feather="layers"></span>
-                        View blog
+                        View product page
                         </a>
                      </li>
                   </ul>
@@ -137,7 +139,7 @@ if (isset($_POST["submit"]))
 echo ErrorMessage();
 echo SuccessMessage();
 ?>
-                  <form class="" action="addnewpost.php" method="post" enctype="multipart/form-data">
+                  <form class="" action="addnewproduct.php" method="post" enctype="multipart/form-data">
                      <div class="form-group">
                         <label for="postTitle">Title</label>
                         <input type="text" name="postTitle" class="form-control" id="postTitle">
@@ -146,9 +148,9 @@ echo SuccessMessage();
                         <label for="categoryTitle">Choose category</label>
                         <select class="form-control" id="categoryTitle" name="categoryTitle">
                            <?php
-global $con;
+global $connection;
 $viewQuery = "SELECT * FROM category ORDER BY id desc";
-$Execute = mysqli_query($con, $viewQuery);
+$Execute = mysqli_query($connection, $viewQuery);
 while ($DataRows = mysqli_fetch_array($Execute))
 {
     $CategoryId = $DataRows["id"];
@@ -164,8 +166,11 @@ while ($DataRows = mysqli_fetch_array($Execute))
                         <input class="form-control" type="file" name="imageSelect" id="imageSelect">
                      </div>
                      <div class="form-group">
-                        <label for="postArea">Post</label>
+                        <label for="postArea">Product description</label>
                         <textarea class="form-control" name="postArea" id="postArea" rows="9"></textarea>
+                     </div>
+                     <div class="form-group">                       
+                        <input type="number" id="replyNumber" min="0" step="1" name="price" data-bind="value:replyNumber" />
                      </div>
                      <button type="submit" name="submit" class="btn btn-success">Add new post</button>
                   </form>
