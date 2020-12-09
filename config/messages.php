@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 function ErrorMessage(){
   if(isset($_SESSION["ErrorMessage"])){
@@ -12,7 +11,7 @@ function ErrorMessage(){
 }
 function SuccessMessage(){
   if(isset($_SESSION["SuccessMessage"])){
-    $Output = "<div class=\"alert alert-success\">" ;
+    $Output = "<div class=\"alert alert-success alert-dismissible fade show\">" ;
     $Output .= htmlentities($_SESSION["SuccessMessage"]);
     $Output .= "</div>";
     $_SESSION["SuccessMessage"] = null;
