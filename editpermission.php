@@ -37,9 +37,10 @@ if (isset($_POST["submit"]))
       <!-- Bootstrap CSS -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+      <link rel="icon" href="img/wallpaper.jpg" type="image/jpg" sizes="32x32">
       <title>Edit permission</title>
       <!-- Custom styles for this template -->
-      <link href="css/style1.css" rel="stylesheet">
+      <link href="css/style.css" rel="stylesheet">
       <style>
          .bd-placeholder-img {
          font-size: 1.125rem;
@@ -60,7 +61,7 @@ if (isset($_POST["submit"]))
    </head>
    <body>
       <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-         <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Classroom</a>
+         <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Coffee</a>
          <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
          </button>
@@ -75,46 +76,36 @@ if (isset($_POST["submit"]))
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                <div class="sidebar-sticky pt-3">
                   <ul class="nav flex-column">
-                     <li class="nav-item">
+                  <li class="nav-item">
                         <a class="nav-link" href="dashboard.php"><i class="fas fa-columns"></i>
                         <span data-feather="home"></span>
                         Dashboard
                         </a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="postdashboard.php"><i class="fas fa-columns"></i>
+                        <a class="nav-link" href="addnewproduct.php"><i class="fas fa-plus"></i>
                         <span data-feather="home"></span>
-                        Post Dashboard
+                        Add new product
                         </a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="commentdashboard.php"><i class="fas fa-columns"></i>
+                        <a class="nav-link" href="categories.php"><i class="fas fa-tags"></i>
                         <span data-feather="home"></span>
-                        Comment Dashboard
+                        Categories
                         </a>
                      </li>
+                     <?php if ($_SESSION['user_type'] == "admin"){ ?>
                      <li class="nav-item">
-                        <a class="nav-link active" href="#"><i class="fas fa-plus"></i>
+                        <a class="nav-link active" href="#"><i class="fas fa-users-cog"></i>
                         <span data-feather="file"></span>
-                        Change user permission<span class="sr-only">(current)</span>
+                        Change user permission <span class="sr-only">(current)</span>
                         </a>
                      </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="addclass.php"><i class="fas fa-tags"></i>
-                        <span data-feather="shopping-cart"></span>
-                        Add class
-                        </a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="addnewpost.php"><i class="fas fa-tags"></i>
-                        <span data-feather="shopping-cart"></span>
-                        Add post
-                        </a>
-                     </li>
+                     <?php } ?>
                      <li class="nav-item">
                         <a class="nav-link" rel="noopener noreferrer" target="_blank" href="index.php"><i class="far fa-eye"></i>
                         <span data-feather="layers"></span>
-                        View classroom
+                        View product page
                         </a>
                      </li>
                   </ul>
@@ -122,7 +113,7 @@ if (isset($_POST["submit"]))
             </nav>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                  <h1 class="h2">Add new post</h1>
+                  <h1 class="h2">Edit premission</h1>
                </div>
                <div class="container-fluid">
                   <?php
@@ -153,8 +144,7 @@ while ($DataRows = mysqli_fetch_array($Execute))
                         <label for="choosepermission">Choose permission type</label>
                         <select class="form-control" id="choosepermission" name="choosepermission">
                         <option value="admin">admin</option>
-                        <option value="teacher">teacher</option>
-                        <option value="student">student</option>
+                        <option value="student">user</option>
                         </select>
                      </div>
 

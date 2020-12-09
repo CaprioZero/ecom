@@ -10,7 +10,7 @@
 <?php
 if (isset($_POST["submit"]))
 {
-    $category = mysqli_real_escape_string($con, $_POST["categoryTitle"]);
+    $category = mysqli_real_escape_string($connection, $_POST["categoryTitle"]);
     date_default_timezone_set("Asia/Ho_Chi_Minh");
     $CurrentTime = time();
     $DateTime = strftime("%d-%m-%Y %H:%M:%S", $CurrentTime);
@@ -79,7 +79,7 @@ if (isset($_POST["submit"]))
    </head>
    <body>
       <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-         <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">FYSVN</a>
+         <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Coffee</a>
          <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
          </button>
@@ -101,20 +101,20 @@ if (isset($_POST["submit"]))
                         </a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="postdashboard.php"><i class="fas fa-columns"></i>
+                        <a class="nav-link" href="addnewproduct.php"><i class="fas fa-plus"></i>
                         <span data-feather="home"></span>
                         Add new product
                         </a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link active" href="#"><i class="fas fa-columns"></i>
+                        <a class="nav-link active" href="#"><i class="fas fa-tags"></i>
                         <span data-feather="home"></span>
                         Categories <span class="sr-only">(current)</span>
                         </a>
                      </li>
                      <?php if ($_SESSION['user_type'] == "admin"){ ?>
                      <li class="nav-item">
-                        <a class="nav-link" href="editpermission.php"><i class="fas fa-plus"></i>
+                        <a class="nav-link" href="editpermission.php"><i class="fas fa-users-cog"></i>
                         <span data-feather="file"></span>
                         Change user permission
                         </a>
@@ -160,13 +160,13 @@ echo SuccessMessage();
                      <?php
 global $con;
 $viewQuery = "SELECT * FROM category ORDER BY id desc";
-$Execute = mysqli_query($con, $viewQuery);
+$Execute = mysqli_query($connection, $viewQuery);
 $SrNo = 0;
 while ($DataRows = mysqli_fetch_array($Execute))
 {
     $CategoryId = $DataRows["id"];
     $CategoryDate = $DataRows["datetime"];
-    $CreatorName = $DataRows["creatorname"];
+    $CategoryName = $DataRows["name"];
     $SrNo++;
 ?>
                      <tbody>

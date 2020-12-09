@@ -60,26 +60,26 @@
                <div class="sidebar-sticky pt-3">
                   <ul class="nav flex-column">
                      <li class="nav-item">
-                        <a class="nav-link active" href="#"><i class="fas fa-columns"></i>
+                        <a class="nav-link active" href="dashboard.php"><i class="fas fa-columns"></i>
                         <span data-feather="home"></span>
                         Dashboard <span class="sr-only">(current)</span>
                         </a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="postdashboard.php"><i class="fas fa-columns"></i>
+                        <a class="nav-link" href="addnewproduct.php"><i class="fas fa-plus"></i>
                         <span data-feather="home"></span>
                         Add new product
                         </a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="commentdashboard.php"><i class="fas fa-columns"></i>
+                        <a class="nav-link" href="categories.php"><i class="fas fa-tags"></i>
                         <span data-feather="home"></span>
                         Categories
                         </a>
                      </li>
                      <?php if ($_SESSION['user_type'] == "admin"){ ?>
                      <li class="nav-item">
-                        <a class="nav-link" href="editpermission.php"><i class="fas fa-plus"></i>
+                        <a class="nav-link" href="editpermission.php"><i class="fas fa-users-cog"></i>
                         <span data-feather="file"></span>
                         Change user permission
                         </a>
@@ -124,7 +124,7 @@ global $connection;
 if (isset($_GET["searchButton"]))
 {
     $Search = $_GET["search"];
-    $viewQuery = "SELECT * FROM items WHERE title LIKE '%$Search%' OR adder LIKE '%$Search%' OR price LIKE '%$Search%' OR category LIKE '%$Search%'";
+    $viewQuery = "SELECT * FROM items WHERE title LIKE '%$Search%' OR description LIKE '%$Search%' OR price LIKE '%$Search%' OR category LIKE '%$Search%'";
 }
 else {
    $viewQuery = "SELECT * FROM items ORDER BY recid desc";
@@ -150,16 +150,16 @@ while ($DataRows = mysqli_fetch_array($Execute))
     {
         $PostDescription = substr($Description, 0, 50) . "...";
     }
-    echo htmlentities($PostDescription); ?></td>
-                           <td><?php echo $Price; ?></td>
+    echo htmlentities($Description); ?></td>
+                           <td><?php echo $Price; ?><p> VND</p></td>
                            <td><?php echo $Category; ?></td>
                            <td>
-                              <a href="editpost.php?id=<?php echo $RecordId; ?>">
+                              <a href="editproduct.php?id=<?php echo $RecordId; ?>">
                               <button type="submit" class="btn btn-warning">Edit</button>
                               </a>
                               <br>
                               <br>
-                              <a class="delete" href="deletepost.php?id=<?php echo $RecordId; ?>">
+                              <a class="delete" href="deleteproduct.php?id=<?php echo $RecordId; ?>">
                               <button type="submit" class="btn btn-danger">Delete</button>
                               </a>
                            </td>
