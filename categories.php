@@ -1,8 +1,12 @@
-<?php require_once ("includes/db.php"); ?>
-<?php require_once ("includes/sessions.php"); ?>
-<?php require_once ("includes/redirector.php"); ?>
-<?php require_once ("includes/checkaccount.php"); ?>
+<?php require_once ("config/db.php"); ?>
+<?php require_once ("config/redirector.php"); ?>
+<?php require_once ("config/checklogin.php"); ?>
+<?php require_once ("config/messages.php"); ?>
 <?php Confirm_login(); ?>
+<?php if ($_SESSION['user_type'] == "user"){
+   $_SESSION["ErrorMessage"] = "You do not have the permission to enter admin zone";
+   Redirect_to("loginpage.php");
+} ?>
 <?php
 if (isset($_POST["submit"]))
 {
@@ -11,7 +15,6 @@ if (isset($_POST["submit"]))
     $CurrentTime = time();
     $DateTime = strftime("%d-%m-%Y %H:%M:%S", $CurrentTime);
     $DateTime;
-    $Admin = $_SESSION["UserName"];
     if (empty($category))
     {
         $_SESSION["ErrorMessage"] = "All fields must be filled out";
@@ -25,9 +28,9 @@ if (isset($_POST["submit"]))
     else
     {
         // Query to insert category in DB When everything is fine
-        global $con;
-        $Query = "INSERT INTO category(datetime,name,creatorname) VALUES ('$DateTime','$category','$Admin')";
-        $Execute = mysqli_query($con, $Query);
+        global $connection;
+        $Query = "INSERT INTO category(datetime,name) VALUES ('$DateTime','$category')";
+        $Execute = mysqli_query($connection, $Query);
 
         if ($Execute)
         {
@@ -91,34 +94,36 @@ if (isset($_POST["submit"]))
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                <div class="sidebar-sticky pt-3">
                   <ul class="nav flex-column">
-                     <li class="nav-item">
+                  <li class="nav-item">
                         <a class="nav-link" href="dashboard.php"><i class="fas fa-columns"></i>
                         <span data-feather="home"></span>
                         Dashboard
                         </a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="addnewpost.php"><i class="fas fa-plus"></i>
-                        <span data-feather="file"></span>
-                        Add new post
+                        <a class="nav-link" href="postdashboard.php"><i class="fas fa-columns"></i>
+                        <span data-feather="home"></span>
+                        Add new product
                         </a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link active" href="#"><i class="fas fa-tags"></i>
-                        <span data-feather="shopping-cart"></span>
+                        <a class="nav-link active" href="#"><i class="fas fa-columns"></i>
+                        <span data-feather="home"></span>
                         Categories <span class="sr-only">(current)</span>
                         </a>
                      </li>
+                     <?php if ($_SESSION['user_type'] == "admin"){ ?>
                      <li class="nav-item">
-                        <a class="nav-link" href="admin.php"><i class="fas fa-users-cog"></i>
-                        <span data-feather="users"></span>
-                        Admin list
+                        <a class="nav-link" href="editpermission.php"><i class="fas fa-plus"></i>
+                        <span data-feather="file"></span>
+                        Change user permission
                         </a>
                      </li>
+                     <?php } ?>
                      <li class="nav-item">
-                        <a class="nav-link" rel="noopener noreferrer" target="_blank" href="index.php?page=1"><i class="far fa-eye"></i>
+                        <a class="nav-link" rel="noopener noreferrer" target="_blank" href="index.php"><i class="far fa-eye"></i>
                         <span data-feather="layers"></span>
-                        View blog
+                        View product page
                         </a>
                      </li>
                   </ul>
@@ -149,7 +154,6 @@ echo SuccessMessage();
                            <th>No. </th>
                            <th>Date & Time</th>
                            <th> Category Name</th>
-                           <th>Creator Name</th>
                            <th>Actions</th>
                         </tr>
                      </thead>
@@ -162,7 +166,6 @@ while ($DataRows = mysqli_fetch_array($Execute))
 {
     $CategoryId = $DataRows["id"];
     $CategoryDate = $DataRows["datetime"];
-    $CategoryName = $DataRows["name"];
     $CreatorName = $DataRows["creatorname"];
     $SrNo++;
 ?>
@@ -171,7 +174,6 @@ while ($DataRows = mysqli_fetch_array($Execute))
                            <td><?php echo htmlentities($SrNo); ?></td>
                            <td><?php echo htmlentities($CategoryDate); ?></td>
                            <td><?php echo htmlentities($CategoryName); ?></td>
-                           <td><?php echo htmlentities($CreatorName); ?></td>
                            <td>
                               <a class="delete" href="deletecategory.php?id=<?php echo $CategoryId; ?>">
                               <button type="submit" class="btn btn-danger">Delete</button>
