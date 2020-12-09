@@ -150,7 +150,7 @@ while ($DataRows = mysqli_fetch_array($Execute))
     {
         $PostDescription = substr($Description, 0, 50) . "...";
     }
-    echo htmlentities($Description); ?></td>
+    echo htmlentities($PostDescription); ?></td>
                            <td><?php echo $Price; ?><p> VND</p></td>
                            <td><?php echo $Category; ?></td>
                            <td>

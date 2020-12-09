@@ -2,7 +2,6 @@
 //----------------------------------------------
 require_once("includes/error.php");
 require_once("includes/header.php");
-require_once("includes/paging.php");
 require_once("dbclass/Dbpdo.class.php");
 require_once("functions/misc.php");
 require_once("functions/cart.php");
@@ -95,19 +94,6 @@ require_once("includes/menu.php");
           $productdetails = publishedproducts($paging, $startrow, $pagesize);
           $totalrowcount = count( publishedproducts(false, "", "") );
           ?>
-
-          <div class="row">
-                <div class="col-md-12">			
-                    <hr>
-                    <?php
-                    if ($paging == true && $totalrowcount > 0)
-                    {                        
-                    echo(displaypaging($pagesize, $startrow, $pageno, $totalrowcount));
-                    }                
-                    ?>
-                </div>
-          </div>
-
 		  <div class="row">
 				<div class="col-md-4">            
 					&nbsp;
@@ -135,16 +121,16 @@ require_once("includes/menu.php");
                     <div class="col-sm-6 col-md-4 col-lg-3">
 
                         <h2>
-                            <a href="detail.php?recid=<?php echo($recid); ?>" class="product"><?php echo($d_row['item_name']); ?></a>
+                            <a href="detail.php?recid=<?php echo($recid); ?>" class="product"><?php echo($d_row['title']); ?></a>
                         </h2>
 
-                        <img  src="<?php echo( $d_row['item_image'] ); ?>"
+                        <img  src="uploads/<?php echo( $d_row['image'] ); ?>"
                             class="img-fluid img-thumbnail rounded"
                             style="max-width:100%; height:auto; padding-top:15px;border: none;"
-                            alt="<?php echo($d_row['item_title']); ?>"
+                            alt="<?php echo($d_row['title']); ?>"
                             width="150" />
-
-                        <p class="cost"><?php echo($d_row['currency']); ?><?php echo($d_row['mc_gross']); ?></p>
+<br>                            <span><?php echo($d_row['category']); ?></span>
+                        <p class="cost"><?php echo($d_row['price']); ?> VND</p>
         
       					<p>
 						<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
@@ -155,7 +141,7 @@ require_once("includes/menu.php");
 						</form>
 						</p>          
 
-                        <?php echo( $d_row['item_description'] ); ?>                          
+                        <p><?php echo( $d_row["description"] ); ?></p>                  
 
                         <p><a href="detail.php?recid=<?php echo($d_row['recid']); ?>" class="product">See more...</a></p>
 
@@ -166,18 +152,6 @@ require_once("includes/menu.php");
                  ?>
 
            </div>
-
-           <div class="row">
-                <div class="col-md-12">                   
-                    <?php
-                    if ($paging == true && $totalrowcount > 0)
-                    {                        
-                    echo(displaypaging($pagesize, $startrow, $pageno, $totalrowcount));
-                    }                
-                    ?>
-                    <hr>
-                </div>
-           </div> 
 
        </div> <!-- End shoppingproducts -->
 
