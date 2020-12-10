@@ -144,7 +144,7 @@ while ($DataRows = mysqli_fetch_array($Execute))
                         <label for="choosepermission">Choose permission type</label>
                         <select class="form-control" id="choosepermission" name="choosepermission">
                         <option value="admin">admin</option>
-                        <option value="student">user</option>
+                        <option value="user">user</option>
                         </select>
                      </div>
 

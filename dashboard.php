@@ -146,11 +146,7 @@ while ($DataRows = mysqli_fetch_array($Execute))
                            <td><?php echo $SrNo; ?></td>
                            <td><?php echo $Title; ?></td>
                            <td><img id="post_img" src="uploads/<?php echo htmlentities($Image); ?>" style="object-fit: contain; width: 100px; height: 100px;" alt="Card image cap"></td>
-                           <td><?php if (strlen($Description) > 50)
-    {
-        $PostDescription = substr($Description, 0, 50) . "...";
-    }
-    echo htmlentities($PostDescription); ?></td>
+                           <td><?php echo htmlentities($Description); ?></td>
                            <td><?php echo $Price; ?><p> VND</p></td>
                            <td><?php echo $Category; ?></td>
                            <td>
@@ -163,7 +159,7 @@ while ($DataRows = mysqli_fetch_array($Execute))
                               <button type="submit" class="btn btn-danger">Delete</button>
                               </a>
                            </td>
-                           <td> <a rel="noopener noreferrer" target="_blank" href="fullpost.php?id=<?php echo $PostId; ?>">
+                           <td> <a rel="noopener noreferrer" target="_blank" href="detail.php?recid=<?php echo $RecordId; ?>">
                               <span class="btn btn-info">View</span>
                               </a>
                            </td>
