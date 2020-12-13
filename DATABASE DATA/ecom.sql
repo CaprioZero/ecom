@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2020 at 11:07 AM
+-- Generation Time: Dec 13, 2020 at 01:38 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -39,7 +39,8 @@ CREATE TABLE `category` (
 
 INSERT INTO `category` (`id`, `datetime`, `name`) VALUES
 (2, '09-12-2020 15:03:01', 'Cafe thượng hạng'),
-(3, '09-12-2020 15:30:29', 'Cafe bình dân');
+(3, '09-12-2020 15:30:29', 'Cafe bình dân'),
+(4, '13-12-2020 18:29:44', 'Cafe nước ngoài');
 
 -- --------------------------------------------------------
 
@@ -63,7 +64,8 @@ CREATE TABLE `items` (
 
 INSERT INTO `items` (`recid`, `datetime`, `title`, `category`, `image`, `description`, `price`) VALUES
 (2, '09-12-2020 15:31:37', 'Cafe latte', 'Cafe thượng hạng', 'A_small_cup_of_coffee.jfif', 'Cafe nguyên chất 100%, hạt cà phê từ Thái Nguyên', '20000'),
-(3, '09-12-2020 15:32:25', 'Cafe sữa', 'Cafe bình dân', 'Coffee-w-Sugar.jpg', 'Cafe sữa ngọt đậm vị sữa và đắng của cafe làm bạn tỉnh táo cho ngày dài', '10000');
+(3, '09-12-2020 15:32:25', 'Cafe sữa', 'Cafe bình dân', 'Coffee-w-Sugar.jpg', 'Cafe sữa ngọt đậm vị sữa và đắng của cafe làm bạn tỉnh táo cho ngày dài', '10000'),
+(4, '13-12-2020 18:35:07', 'Espresso 2', 'Cafe nước ngoài', '20180613-coffee-vs-espresso-vicky-wasik-3-1500x1125.jpg', 'Espresso, là một phương pháp pha cà phê có nguồn gốc từ Ý, trong đó một lượng nhỏ nước sôi gần như bị đè dưới áp lực qua hạt cà phê nghiền                                                ', '60000');
 
 -- --------------------------------------------------------
 
@@ -118,19 +120,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `recid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `recid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
