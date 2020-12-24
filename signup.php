@@ -37,6 +37,22 @@
                     </div>
 
                     <div class="form-group">
+                        <label>Mobile number</label>
+                        <input type="text" class="form-control" name="mobilenumber" id="mobilenumber" />
+
+                        <?php echo $_mobileErr; ?>
+                        <?php echo $mobileEmptyErr; ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" class="form-control" name="address" id="address" />
+
+                        <?php echo $_addressErr; ?>
+                        <?php echo $addressEmptyErr; ?>
+                    </div>
+
+                    <div class="form-group">
                         <label>Password</label>
                         <input type="password" class="form-control" name="password" id="password" />
 

@@ -6,6 +6,7 @@ require_once("dbclass/Dbpdo.class.php");
 require_once("functions/misc.php");
 require_once("functions/cart.php");
 require_once("classes/clsinput.php");
+require_once("config/db.php");
 //----------------------------------------------
 
 //THE FOLLOWING TWO ITEMS CONTROL THE PAGING :
@@ -139,9 +140,7 @@ require_once("includes/menu.php");
 							<input type="hidden" name="from" value="<?php echo ($_SERVER['PHP_SELF']); ?>" />
 							<button type="submit" class="btn btn-info">Add to cart</button>
 						</form>
-						</p>          
-
-                        <p><?php echo( $d_row["description"] ); ?></p>                  
+						</p>                          
 
                         <p><a href="detail.php?recid=<?php echo($d_row['recid']); ?>" class="product">See more...</a></p>
 
@@ -154,7 +153,28 @@ require_once("includes/menu.php");
            </div>
 
        </div> <!-- End shoppingproducts -->
-
+<hr>
+<!-- Sidebar Widgets Column -->
+<div class="col-md-4">
+               <!-- Categories Widget -->
+               <div class="card my-4">
+                  <h5 class="card-header">Categories</h5>
+                  <div class="card-body">
+                     <?php
+global $connection;
+$viewQuery = "SELECT * FROM category ORDER BY id desc";
+$Execute = mysqli_query($connection, $viewQuery);
+while ($DataRows = mysqli_fetch_array($Execute))
+{
+    $CategoryId = $DataRows["id"];
+    $CategoryName = $DataRows["name"];
+?>
+                     <span class="heading"> <?php echo $CategoryName; ?></span><br>
+                     <?php
+} ?>
+                  </div>
+               </div>
+               <!-- Side Widget -->
        <?php
         require_once("includes/copyright.php");
         ?>
