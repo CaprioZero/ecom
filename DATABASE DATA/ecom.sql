@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2020 at 01:38 PM
+-- Generation Time: Dec 24, 2020 at 07:42 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -78,6 +78,8 @@ CREATE TABLE `users` (
   `datetime` date NOT NULL,
   `email` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `password` varchar(200) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `phone_num` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `address` varchar(200) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `reset_token` varchar(200) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `user_type` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
@@ -86,9 +88,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `datetime`, `email`, `password`, `reset_token`, `user_type`) VALUES
-(2, '2020-12-09', 'test123@gmail.com', '$2y$10$ZoVbkaUp/KhgOtMa0/PBkuhf1gcZHNdgyLAjekwh596QTCLC.nthC', '', 'admin'),
-(3, '2020-12-09', 'user123@gmail.com', '$2y$10$K6qswS8/Hm/aSgLQ76wtWe8m.O60OSt8eGYvlewGJvIHWfFHMgCtu', '', 'user');
+INSERT INTO `users` (`id`, `datetime`, `email`, `password`, `phone_num`, `address`, `reset_token`, `user_type`) VALUES
+(2, '2020-12-09', 'test123@gmail.com', '$2y$10$ZoVbkaUp/KhgOtMa0/PBkuhf1gcZHNdgyLAjekwh596QTCLC.nthC', '', '', '', 'admin'),
+(3, '2020-12-09', 'user123@gmail.com', '$2y$10$K6qswS8/Hm/aSgLQ76wtWe8m.O60OSt8eGYvlewGJvIHWfFHMgCtu', '', '', '', 'user'),
+(5, '2020-12-24', 'ngoc@gmail.com', '$2y$10$5muwZu77E0plNJifMLsSQuulCdZI4CnZn7gcmy9IdiMRKwXDVoG42', '0969072203', '10/9 Huỳnh Tịnh Của', '', 'user');
 
 --
 -- Indexes for dumped tables
@@ -132,7 +135,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
